@@ -122,6 +122,11 @@ for name in first second; do
 		> "$TEMP_DIR/${name}_oneline_dependencies.txt"
 done
 
+# sort dependencies
+for name in first second; do
+	sort "$TEMP_DIR/${name}_oneline_dependencies.txt" -o "$TEMP_DIR/${name}_oneline_dependencies_sorted.txt"
+done
+
 # format dependencies nicely
 case "$OUTPUT_FORMAT" in
 	simple)
@@ -129,7 +134,7 @@ case "$OUTPUT_FORMAT" in
 			printf "<<< %s pom.xml's dependencies >>>\n" "${name^}"
 			while IFS=$' ' read -r -a line || [[ -n "$line" ]]; do
 				printf "%s %s %s\n" "${line[0]}" "${line[1]}" "${line[2]}"
-			done < "$TEMP_DIR/${name}_oneline_dependencies.txt"
+			done < "$TEMP_DIR/${name}_oneline_dependencies_sorted.txt"
 			printf "\n"
 		done
 		;;
