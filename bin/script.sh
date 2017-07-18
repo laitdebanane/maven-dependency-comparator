@@ -104,3 +104,11 @@ echo "Output format: $OUTPUT_FORMAT, Output file: $OUTPUT_FILE, First pom: $FIRS
 CURRENT_DIR="$( pwd )"
 FIRST_POM_DIR="$( cd "$( dirname "${FIRST_POM}" )" && pwd )"
 SECOND_POM_DIR="$( cd "$( dirname "${SECOND_POM}" )" && pwd )"
+
+# create temporary directory
+TEMP_DIR="/tmp/maven-dependency-comparator"
+mkdir -p "$TEMP_DIR"
+
+# get effective poms
+mvn help:effective-pom --non-recursive -f "$FIRST_POM" -Doutput="$TEMP_DIR/first_pom.xml" > /dev/null
+mvn help:effective-pom --non-recursive -f "$SECOND_POM" -Doutput="$TEMP_DIR/second_pom.xml" > /dev/null
