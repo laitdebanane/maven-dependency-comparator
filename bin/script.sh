@@ -100,11 +100,6 @@ fi
 # print options and arguments
 echo "Output format: $OUTPUT_FORMAT, Output file: $OUTPUT_FILE, First pom: $FIRST_POM, Second pom: $SECOND_POM"
 
-# get working directories
-CURRENT_DIR="$( pwd )"
-FIRST_POM_DIR="$( cd "$( dirname "${FIRST_POM}" )" && pwd )"
-SECOND_POM_DIR="$( cd "$( dirname "${SECOND_POM}" )" && pwd )"
-
 # create temporary directory
 TEMP_DIR="/tmp/maven-dependency-comparator"
 mkdir -p "$TEMP_DIR"
