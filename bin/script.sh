@@ -97,9 +97,6 @@ if [[ "$(basename "$FIRST_POM")" != "pom.xml" ]] || [[ "$(basename "$SECOND_POM"
 	exit 6
 fi
 
-# print options and arguments
-echo "Output format: $OUTPUT_FORMAT, Output file: $OUTPUT_FILE, First pom: $FIRST_POM, Second pom: $SECOND_POM"
-
 # create temporary directory
 TEMP_DIR="/tmp/maven-dependency-comparator"
 mkdir -p "$TEMP_DIR"
