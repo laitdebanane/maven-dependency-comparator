@@ -1,10 +1,16 @@
 #!/bin/bash
 
+# exit on fail
+set -e
+
 # make sure getopt is functional
-getopt --test > /dev/null
-if [[ $? -ne 4 ]]; then
-	echo "`getopt --test` failed, exiting..."
-	exit 1
+if getopt --test > /dev/null; then
+	:
+else
+	if [[ $? -ne 4 ]]; then
+		echo "'getopt --test' failed, exiting..."
+		exit 1
+	fi
 fi
 
 # define help
@@ -66,7 +72,7 @@ done
 
 # handle non-option arguments
 if [[ $# -ne 2 ]]; then
-	echo "Require 2 pom.xml files to compare dependencies of."
+	echo "Require 2 pom.xml files to compare dependencies of"
 	exit 4
 fi
 FIRST_POM="$1"
