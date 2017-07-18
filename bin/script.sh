@@ -121,3 +121,20 @@ for name in first second; do
 			-e 's/<dependency><groupId>\([^<]*\)<\/groupId><artifactId>\([^<]*\)<\/artifactId><version>\([^<]*\)<\/version><\/dependency>/\1 \2 \3\n/g' \
 		> "$TEMP_DIR/${name}_oneline_dependencies.txt"
 done
+
+# format dependencies nicely
+case "$OUTPUT_FORMAT" in
+	simple)
+		:
+		;;
+	inline)
+		:
+		;;
+	markdown)
+		:
+		;;
+	*)
+		echo "Programming error"
+		exit 7
+		;;
+esac
