@@ -72,7 +72,7 @@ done
 
 # handle non-option arguments
 if [[ $# -ne 2 ]]; then
-	echo "Require 2 pom.xml files to compare dependencies of."
+	echo "Require 2 pom.xml files to compare dependencies of"
 	exit 4
 fi
 FIRST_POM="$1"
