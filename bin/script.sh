@@ -104,3 +104,20 @@ mkdir -p "$TEMP_DIR"
 # get effective poms
 mvn help:effective-pom --non-recursive -f "$FIRST_POM" -Doutput="$TEMP_DIR/first_effective_pom.xml" > /dev/null
 mvn help:effective-pom --non-recursive -f "$SECOND_POM" -Doutput="$TEMP_DIR/second_effective_pom.xml" > /dev/null
+
+# parse dependencies into one line each
+for name in first second; do
+	cat "$TEMP_DIR/${name}_effective_pom.xml" \
+		| sed -n \
+			-e '/<dependencyManagement>/,/<\/dependencyManagement>/d' \
+			-e '/<exclusions>/,/<\/exclusions>/d' \
+			-e '/<dependencies>/,/<\/dependencies>/p' \
+		| tr -d '\n\t ' \
+		| sed \
+			-e 's/<!--[^>]*>//g' \
+			-e 's/<dependencies>//g' \
+			-e 's/<\/dependencies>//g' \
+			-e 's/<scope>[^<]*<\/scope>//g' \
+			-e 's/<dependency><groupId>\([^<]*\)<\/groupId><artifactId>\([^<]*\)<\/artifactId><version>\([^<]*\)<\/version><\/dependency>/\1 \2 \3\n/g' \
+		> "$TEMP_DIR/${name}_oneline_dependencies.txt"
+done
