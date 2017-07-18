@@ -4,10 +4,13 @@
 set -e
 
 # make sure getopt is functional
-getopt --test > /dev/null
-if [[ $? -ne 4 ]]; then
-	echo "`getopt --test` failed, exiting..."
-	exit 1
+if getopt --test > /dev/null; then
+	:
+else
+	if [[ $? -ne 4 ]]; then
+		echo "'getopt --test' failed, exiting..."
+		exit 1
+	fi
 fi
 
 # define help
