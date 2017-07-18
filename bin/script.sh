@@ -102,5 +102,5 @@ TEMP_DIR="/tmp/maven-dependency-comparator"
 mkdir -p "$TEMP_DIR"
 
 # get effective poms
-mvn help:effective-pom --non-recursive -f "$FIRST_POM" -Doutput="$TEMP_DIR/first_pom.xml" > /dev/null
-mvn help:effective-pom --non-recursive -f "$SECOND_POM" -Doutput="$TEMP_DIR/second_pom.xml" > /dev/null
+mvn help:effective-pom --non-recursive -f "$FIRST_POM" -Doutput="$TEMP_DIR/first_effective_pom.xml" > /dev/null
+mvn help:effective-pom --non-recursive -f "$SECOND_POM" -Doutput="$TEMP_DIR/second_effective_pom.xml" > /dev/null
