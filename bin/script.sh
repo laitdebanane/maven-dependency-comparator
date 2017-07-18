@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# exit on fail
+set -e
+
 # make sure getopt is functional
 getopt --test > /dev/null
 if [[ $? -ne 4 ]]; then
