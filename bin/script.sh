@@ -92,6 +92,15 @@ case $OUTPUT_FORMAT in
 		exit 5
 		;;
 esac
+if [[ "$(basename "$FIRST_POM")" != "pom.xml" ]] || [[ "$(basename "$SECOND_POM")" != "pom.xml" ]]; then
+	echo "Arguments must be pom.xml files"
+	exit 6
+fi
 
-# print options and arguments
-echo "Output format: $OUTPUT_FORMAT, Output file: $OUTPUT_FILE, First pom: $FIRST_POM, Second pom: $SECOND_POM"
+# create temporary directory
+TEMP_DIR="/tmp/maven-dependency-comparator"
+mkdir -p "$TEMP_DIR"
+
+# get effective poms
+mvn help:effective-pom --non-recursive -f "$FIRST_POM" -Doutput="$TEMP_DIR/first_pom.xml" > /dev/null
+mvn help:effective-pom --non-recursive -f "$SECOND_POM" -Doutput="$TEMP_DIR/second_pom.xml" > /dev/null
