@@ -10,14 +10,15 @@ fi
 # define help
 print_help() {
 cat << EOF
+
 Usage:
- ${0##*/} [options] FIRST_POM SECOND_POM
+ ${0##*/} [options] first_pom second_pom
 
 Compare the dependencies of the two given pom.xml files.
 
 Options:
  -f, --format <format>   write output in given format: simple (default), inline, or markdown
- -o, --output <file>     write output to given file
+ -o, --output <file>     write output to given file, if no file then write to standard output
 
  -h, --help              Print this help message and exit
 EOF
