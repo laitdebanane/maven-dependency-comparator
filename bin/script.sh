@@ -167,7 +167,34 @@ case "$OUTPUT_FORMAT" in
 		done
 		;;
 	markdown)
-		:
+		# load oneline dependencies
+		IFS=$'\n' FIRST_ONELINE_DEPS=($(cat $TEMP_DIR/first_oneline_dependencies_sorted.txt))
+		IFS=$'\n' SECOND_ONELINE_DEPS=($(cat $TEMP_DIR/second_oneline_dependencies_sorted.txt))
+		# run through arrays
+		FIRST_COUNTER=0
+		SECOND_COUNTER=0
+		printf "| %s | %s | %s | %s |\n" "groupId" "artifactId" "first version" "second version"
+		printf "|:---:|:---:|:---:|:---:|\n"
+		while [[ "${FIRST_COUNTER}" -lt "${#FIRST_ONELINE_DEPS[@]}" ]] && [[ "${SECOND_COUNTER}" -lt "${#SECOND_ONELINE_DEPS[@]}" ]]; do
+			# get dependency
+			IFS=$' ' read -r -a FIRST_DEP <<< "${FIRST_ONELINE_DEPS[FIRST_COUNTER]}"
+			IFS=$' ' read -r -a SECOND_DEP <<< "${SECOND_ONELINE_DEPS[SECOND_COUNTER]}"
+			# act based on wether a dependency is missing
+			if [[ "${FIRST_DEP[0]}.${FIRST_DEP[1]}" == "${SECOND_DEP[0]}.${SECOND_DEP[1]}" ]]; then
+				# if dependencies the same
+				printf "| %s | %s | %s | %s |\n" "${FIRST_DEP[0]}" "${FIRST_DEP[1]}" "${FIRST_DEP[2]}" "${SECOND_DEP[2]}"
+				FIRST_COUNTER=$(expr $FIRST_COUNTER + 1)
+				SECOND_COUNTER=$(expr $SECOND_COUNTER + 1)
+			elif [[ "${FIRST_DEP[0]}.${FIRST_DEP[1]}" < "${SECOND_DEP[0]}.${SECOND_DEP[1]}" ]]; then
+				# if second pom.xml missing a dependency
+				printf "| %s | %s | %s | %s |\n" "${FIRST_DEP[0]}" "${FIRST_DEP[1]}" "${FIRST_DEP[2]}" "<none>"
+				FIRST_COUNTER=$(expr $FIRST_COUNTER + 1)
+			else
+				# if first pom.xml missing a dependency
+				printf "| %s | %s | %s | %s |\n" "${SECOND_DEP[0]}" "${SECOND_DEP[1]}" "<none>" "${SECOND_DEP[2]}"
+				SECOND_COUNTER=$(expr $SECOND_COUNTER + 1)
+			fi
+		done
 		;;
 	*)
 		echo "Programming error"
