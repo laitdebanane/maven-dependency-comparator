@@ -125,7 +125,13 @@ done
 # format dependencies nicely
 case "$OUTPUT_FORMAT" in
 	simple)
-		:
+		for name in first second; do
+			printf "<<< %s pom.xml's dependencies >>>\n" "${name^}"
+			while IFS=$' ' read -r -a line || [[ -n "$line" ]]; do
+				printf "%s %s %s\n" "${line[0]}" "${line[1]}" "${line[2]}"
+			done < "$TEMP_DIR/${name}_oneline_dependencies.txt"
+			printf "\n"
+		done
 		;;
 	inline)
 		:
