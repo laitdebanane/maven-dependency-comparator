@@ -182,7 +182,11 @@ case "$OUTPUT_FORMAT" in
 			# act based on wether a dependency is missing
 			if [[ "${FIRST_DEP[0]}.${FIRST_DEP[1]}" == "${SECOND_DEP[0]}.${SECOND_DEP[1]}" ]]; then
 				# if dependencies the same
-				printf "| %s | %s | %s | %s |\n" "${FIRST_DEP[0]}" "${FIRST_DEP[1]}" "${FIRST_DEP[2]}" "${SECOND_DEP[2]}"
+				if [[ "${FIRST_DEP[2]}" == "${SECOND_DEP[2]}" ]]; then
+					printf "| %s | %s | %s | %s |\n" "${FIRST_DEP[0]}" "${FIRST_DEP[1]}" "${FIRST_DEP[2]}" "${SECOND_DEP[2]}"
+				else
+					printf "| **%s** | **%s** | **%s** | **%s** |\n" "${FIRST_DEP[0]}" "${FIRST_DEP[1]}" "${FIRST_DEP[2]}" "${SECOND_DEP[2]}"
+				fi
 				FIRST_COUNTER=$(expr $FIRST_COUNTER + 1)
 				SECOND_COUNTER=$(expr $SECOND_COUNTER + 1)
 			elif [[ "${FIRST_DEP[0]}.${FIRST_DEP[1]}" < "${SECOND_DEP[0]}.${SECOND_DEP[1]}" ]]; then
