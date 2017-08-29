@@ -89,7 +89,7 @@ bin/script.sh ~/projects/project_A/pom.xml ~/projects/project_B/pom.xml --format
 |:---:|:---:|:---:|:---:|
 | com.mycompany.project.commons | datamodel | <none> | 0.5.7 |
 | com.mycompany.project | datamodel | 0.5.0 | <none> |
-| com.h2database | h2 | 1.4.191 | 1.4.196 |
+| **com.h2database** | **h2** | **1.4.191** | **1.4.196** |
 | log4j | apache-log4j-extras | 1.2.17 | 1.2.17 |
 | mysql | mysql-connector-java | 5.1.39 | 5.1.39 |
 | org.apache.hadoop | hadoop-common | 2.6.0 | 2.6.0 |
@@ -102,7 +102,7 @@ bin/script.sh ~/projects/project_A/pom.xml ~/projects/project_B/pom.xml --format
 |:---:|:---:|:---:|:---:|
 | com.mycompany.project.commons | datamodel | <none> | 0.5.7 |
 | com.mycompany.project | datamodel | 0.5.0 | <none> |
-| com.h2database | h2 | 1.4.191 | 1.4.196 |
+| **com.h2database** | **h2** | **1.4.191** | **1.4.196** |
 | log4j | apache-log4j-extras | 1.2.17 | 1.2.17 |
 | mysql | mysql-connector-java | 5.1.39 | 5.1.39 |
 | org.apache.hadoop | hadoop-common | 2.6.0 | 2.6.0 |
